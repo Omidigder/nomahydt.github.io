@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Omid Mohammadiigder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: deep-water hero with an ensemble hydrograph, then a calm sectioned page; each research theme owns one color. */
+:root {
+  --bg: #F2F8FA;
+  --surface: #FFFFFF;
+  --fg: #0B2233;
+  --muted: #476072;
+  --line: #D3E2EA;
+  --nav-bg: #F2F8FAEE;
+  --teal: #0A7F8F;
+  --amber: #B86E00;
+  --coral: #C93E1C;
+  --violet: #5646C9;
+  --teal-soft: #D8F0F3;
+  --amber-soft: #FCEBCB;
+  --coral-soft: #FADDD4;
+  --violet-soft: #E2DFFA;
+  --hero-bg: #08263A;
+  --hero-bg2: #0B4A5E;
+  --hero-fg: #EAF6F9;
+  --hero-muted: #9CC3CF;
+  --hero-amber: #FFB547;
+  --hero-teal: #4FD6E6;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #07131C; --surface: #0E212E; --fg: #E6F1F5; --muted: #8FB0BF; --line: #1B3646;
+    --nav-bg: #07131CEE;
+    --teal: #4FD6E6; --amber: #FFB547; --coral: #FF8A6B; --violet: #A99CFF;
+    --teal-soft: #0F3A44; --amber-soft: #43300F; --coral-soft: #44211A; --violet-soft: #26225A;
+    --hero-bg: #04101A; --hero-bg2: #082F40;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #07131C; --surface: #0E212E; --fg: #E6F1F5; --muted: #8FB0BF; --line: #1B3646;
+  --nav-bg: #07131CEE;
+  --teal: #4FD6E6; --amber: #FFB547; --coral: #FF8A6B; --violet: #A99CFF;
+  --teal-soft: #0F3A44; --amber-soft: #43300F; --coral-soft: #44211A; --violet-soft: #26225A;
+  --hero-bg: #04101A; --hero-bg2: #082F40;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 30; background: var(--hero-bg);
+}
+a { color: var(--teal); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 3px; }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.12; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* nav */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--nav-bg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; gap: 24px; height: 56px; }
+.nav .brand { font-family: var(--font-display); font-weight: 800; font-size: 18px; white-space: nowrap; color: var(--fg); text-decoration: none; }
+.nav-links { display: flex; gap: 4px; overflow-x: auto; min-width: 0; margin-left: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; padding: 8px 10px; border-radius: 4px; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--fg); background: var(--teal-soft); }
+
+/* hero */
+.hero {
+  background: radial-gradient(900px 400px at 85% 10%, var(--hero-bg2), transparent 70%), var(--hero-bg);
+  color: var(--hero-fg); padding-block: 72px 0; overflow: hidden;
+}
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: end; }
+.hero .eyebrow { color: var(--hero-teal); }
+.hero h1 { font-size: clamp(40px, 6.4vw, 72px); font-weight: 800; letter-spacing: -0.025em; margin-top: 16px; }
+.hero h1 span { color: var(--hero-amber); }
+.hero .lede { font-size: 19px; color: var(--hero-muted); max-width: 52ch; margin: 22px 0 0; }
+.hero .lede strong { color: var(--hero-fg); font-weight: 600; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding: 0; list-style: none; }
+.hero-tags li {
+  font-family: var(--font-mono); font-size: 12px; padding: 6px 10px; border-radius: 3px;
+  border: 1px solid #4FD6E655; color: var(--hero-teal);
+}
+.hero-tags li:nth-child(2) { border-color: #FFB54766; color: var(--hero-amber); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn {
+  font-family: var(--font-display); font-weight: 700; font-size: 15px; text-decoration: none;
+  padding: 12px 20px; border-radius: 4px; display: inline-block; cursor: pointer; border: 0;
+}
+.btn-primary { background: var(--hero-amber); color: #08263A; }
+.btn-primary:hover { background: #FFC878; }
+.btn-ghost { border: 1px solid #9CC3CF66; color: var(--hero-fg); background: transparent; }
+.btn-ghost:hover { background: #FFFFFF14; }
+.hero-chart { align-self: end; margin-bottom: 0; }
+.hero-chart svg { display: block; width: 100%; height: auto; }
+.chart-key {
+  display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-mono); font-size: 11.5px;
+  color: var(--hero-muted); padding: 10px 0 18px;
+}
+.chart-key i { display: inline-block; width: 18px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+
+/* sections */
+section { padding-block: 72px 0; }
+section:last-of-type { padding-bottom: 72px; }
+.sec-head { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+.sec-head h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; }
+
+.about { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 48px; }
+.about p { margin: 0 0 16px; max-width: 62ch; }
+.about p:last-child { margin: 0; }
+.facts { margin: 0; padding: 0; display: grid; gap: 14px; align-content: start; }
+.facts div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.facts dt { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.facts dd { margin: 0; font-weight: 600; }
+.facts dd span { display: block; font-weight: 400; color: var(--muted); font-size: 15px; }
+
+/* research themes */
+.themes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.theme { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 26px; display: flex; flex-direction: column; gap: 12px; }
+.theme .chip {
+  align-self: flex-start; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 9px; border-radius: 3px; font-weight: 600;
+}
+.theme h3 { font-size: 22px; font-weight: 700; }
+.theme p { margin: 0; color: var(--muted); font-size: 16px; }
+.theme.t1 .chip { background: var(--teal-soft); color: var(--teal); }
+.theme.t2 .chip { background: var(--violet-soft); color: var(--violet); }
+.theme.t3 .chip { background: var(--amber-soft); color: var(--amber); }
+.theme.t4 .chip { background: var(--coral-soft); color: var(--coral); }
+
+.numbers {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 28px;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.numbers div { padding: 22px 18px; border-right: 1px solid var(--line); }
+.numbers div:last-child { border-right: 0; }
+.numbers b { display: block; font-family: var(--font-display); font-size: 34px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.numbers div:nth-child(1) b { color: var(--teal); }
+.numbers div:nth-child(2) b { color: var(--violet); }
+.numbers div:nth-child(3) b { color: var(--amber); }
+.numbers div:nth-child(4) b { color: var(--coral); }
+.numbers span { display: block; margin-top: 8px; font-size: 14px; color: var(--muted); line-height: 1.4; }
+
+/* publications */
+.pubs { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.pub {
+  display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 20px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 6px; padding: 22px;
+}
+.pub .yr { font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 1; color: var(--fg); font-variant-numeric: tabular-nums; }
+.pub h3 { font-size: 19px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+.pub .authors { font-size: 15px; color: var(--muted); margin: 0 0 8px; }
+.pub .authors b { color: var(--fg); }
+.pub .venue { font-size: 15px; margin: 0; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.pub .venue em { font-style: italic; }
+.badge { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; font-weight: 600; }
+.badge.pub-ok { background: var(--teal-soft); color: var(--teal); }
+.badge.pub-rev { background: var(--amber-soft); color: var(--amber); }
+.badge.pub-prep { background: var(--violet-soft); color: var(--violet); }
+.doi { font-family: var(--font-mono); font-size: 12.5px; overflow-wrap: anywhere; }
+.sub-label { margin: 28px 0 12px; }
+
+/* timeline */
+.timeline { list-style: none; margin: 0; padding: 0 0 0 28px; border-left: 2px solid var(--line); display: grid; gap: 32px; }
+.job { position: relative; }
+.job::before {
+  content: ""; position: absolute; left: -37px; top: 6px; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--bg); border: 3px solid var(--teal);
+}
+.job.c2::before { border-color: var(--violet); }
+.job.c3::before { border-color: var(--amber); }
+.job.c4::before { border-color: var(--coral); }
+.job .when { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.06em; color: var(--muted); }
+.job h3 { font-size: 21px; font-weight: 700; margin: 4px 0 2px; }
+.job .org { color: var(--muted); font-size: 15.5px; margin: 0 0 10px; }
+.job ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 78ch; }
+.job li::marker { color: var(--teal); }
+
+/* education */
+.edu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.edu article { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+.edu .deg { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+.edu article:nth-child(1) .deg { color: var(--teal); }
+.edu article:nth-child(2) .deg { color: var(--violet); }
+.edu article:nth-child(3) .deg { color: var(--amber); }
+.edu h3 { font-size: 19px; font-weight: 700; line-height: 1.25; }
+.edu p { margin: 0; font-size: 15px; color: var(--muted); }
+.edu .gpa { color: var(--fg); font-weight: 600; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 40px; }
+.skill-group h3 { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.chips li { font-size: 14.5px; padding: 5px 11px; border-radius: 3px; font-weight: 600; }
+.g1 h3 { color: var(--teal); } .g1 .chips li { background: var(--teal-soft); color: var(--teal); }
+.g2 h3 { color: var(--violet); } .g2 .chips li { background: var(--violet-soft); color: var(--violet); }
+.g3 h3 { color: var(--amber); } .g3 .chips li { background: var(--amber-soft); color: var(--amber); }
+.g4 h3 { color: var(--coral); } .g4 .chips li { background: var(--coral-soft); color: var(--coral); }
+
+/* recognition and service */
+.two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.plain li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+.plain .y { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); padding-top: 3px; }
+.plain b { font-weight: 600; }
+.plain span.sub { display: block; color: var(--muted); font-size: 14.5px; }
+.col-title { font-size: 21px; font-weight: 700; margin-bottom: 8px; }
+
+/* contact */
+.contact { background: var(--hero-bg); color: var(--hero-fg); padding-block: 64px; margin-top: 72px; }
+.contact .eyebrow { color: var(--hero-teal); }
+.contact h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; margin: 10px 0 24px; }
+.contact-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.contact-card { border: 1px solid #9CC3CF44; border-radius: 6px; padding: 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.contact-card .label { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hero-muted); }
+.contact-card .val { font-weight: 600; overflow-wrap: anywhere; user-select: all; }
+.contact-card a.val { color: var(--hero-teal); }
+.copy { align-self: flex-start; font-family: var(--font-mono); font-size: 12px; padding: 6px 10px; border-radius: 3px; border: 1px solid #FFB54788; color: var(--hero-amber); background: transparent; cursor: pointer; }
+.copy:hover { background: #FFB54722; }
+.footer { color: var(--hero-muted); font-size: 13.5px; padding-top: 36px; }
+
+@media (max-width: 860px) {
+  .hero-grid, .about, .two-col { grid-template-columns: minmax(0, 1fr); }
+  .hero { padding-top: 48px; }
+  .themes, .edu, .skills, .contact-grid { grid-template-columns: minmax(0, 1fr); }
+  .numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .numbers div:nth-child(2) { border-right: 0; }
+  .numbers div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .pub { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .nav .brand { display: none; }
+  .nav-links { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+</head>
+<body>
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top">Omid Mohammadiigder</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Papers</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div style="padding-bottom:56px">
+      <div class="eyebrow">Hydrology &middot; University of Manitoba</div>
+      <h1>Omid <span>Mohammadiigder</span></h1>
+      <p class="lede">Ph.D. candidate in water resources engineering. I study how much of a streamflow forecast error comes from <strong>precipitation</strong>, how much from the <strong>model and parameter sets</strong>, and how <strong>data assimilation</strong> can mitigate.</p>
+      <ul class="hero-tags">
+        <li>Uncertainty quantification</li>
+        <li>Data assimilation</li>
+        <li>Cold-regions hydrology</li>
+        <li>Raven &middot; SWAT+ &middot; LSTM</li>
+      </ul>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#publications">Read the papers</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-chart">
+      <svg id="hydro" viewBox="0 0 640 330" role="img" aria-label="Illustrative spring snowmelt hydrograph: a band of ensemble streamflow forecasts surrounding one observed flow curve"></svg>
+      <div class="chart-key">
+        <span><i style="background:#FFB547"></i>Observed flow</span>
+        <span><i style="background:#4FD6E6"></i>Forecast ensemble</span>
+        <span>Illustrative spring melt event, not site data</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">About</div>
+      <h2>Keeping streamflow forecasts reliable in the face of growing uncertainty</h2>
+    </div>
+    <div class="about">
+      <div>
+        <p>I am a hydrological modeller working on the snowmelt-dominated basins of the Canadian Prairies. My work asks where forecast error actually comes from, then tests whether assimilating observations can reduce it.</p>
+        <p>My dissertation follows precipitation and parameter uncertainty through conceptual and machine-learning streamflow models, then benchmarks assimilation algorithms in synthetic-truth experiments so that each source of error can be isolated.</p>
+        <p>The research is funded by Manitoba Transportation and Infrastructure. During a year at the Hydrologic Forecast Centre I built Raven models for the Assiniboine and Red River basins and automated the model-building workflow used for operational flood forecasting.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Now</dt><dd>Ph.D. candidate<span>Civil Engineering, University of Manitoba</span></dd></div>
+        <div><dt>Supervisors</dt><dd>Dr. Ricardo Mantilla<span>with Dr. Chandra Rupa Rajulapati</span></dd></div>
+        <div><dt>Focus</dt><dd>Prairie streamflow forecasting<span>Snowmelt, uncertainty, data assimilation</span></dd></div>
+        <div><dt>Base</dt><dd>Winnipeg, Manitoba</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Research</div>
+      <h2>Four threads, one question</h2>
+    </div>
+    <div class="themes">
+      <article class="theme t1">
+        <span class="chip">Uncertainty</span>
+        <h3>Precipitation and epistemic error</h3>
+        <p>Separating the share of streamflow uncertainty caused by precipitation estimates from the share caused by model structure and parameters, using multi-model and multi-parameter ensembles.</p>
+      </article>
+      <article class="theme t2">
+        <span class="chip">Assimilation</span>
+        <h3>Ensemble Kalman Filter and generative DA</h3>
+        <p>Updating Raven model states with the EnKF and Generative Ensemble Data Assimilation, benchmarked in perfect-DA experiments with a known synthetic truth.</p>
+      </article>
+      <article class="theme t3">
+        <span class="chip">Cold regions</span>
+        <h3>Snowmelt-driven streamflow</h3>
+        <p>Simulating Prairie basins with several conceptual structures and diagnosing how each one represents snow, soil and runoff processes differently.</p>
+      </article>
+      <article class="theme t4">
+        <span class="chip">Data and ML</span>
+        <h3>Satellite products and LSTM models</h3>
+        <p>Evaluating gridded precipitation against gauges, and comparing conceptual and LSTM models for how strongly each reacts to precipitation estimate and forecast errors.</p>
+      </article>
+    </div>
+    <div class="numbers">
+      <div><b>7</b><span>gridded precipitation products evaluated</span></div>
+      <div><b>103</b><span>rain gauges used as reference</span></div>
+      <div><b>~100,000</b><span>km&sup2; of southern Manitoba covered</span></div>
+      <div><b>6</b><span>Raven model structures in the toolkit</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Publications</div>
+      <h2>Papers and manuscripts</h2>
+    </div>
+    <ol class="pubs">
+      <li class="pub">
+        <div class="yr">2026</div>
+        <div>
+          <h3>Disentangling the contribution of precipitation and epistemic uncertainties on streamflow estimates from hydrologic models in the Canadian Prairies</h3>
+          <p class="authors"><b>Mohammadiigder, O.</b>, Mantilla, R., Rajulapati, C., Mehboob, M., &amp; Unduche, F.</p>
+          <p class="venue"><span class="badge pub-ok">Published</span><em>Journal of Hydrometeorology</em><a class="doi" href="https://doi.org/10.1175/JHM-D-26-0089.1" target="_blank" rel="noopener">doi:10.1175/JHM-D-26-0089.1</a></p>
+        </div>
+      </li>
+      <li class="pub">
+        <div class="yr">2025</div>
+        <div>
+          <h3>Evaluation of differences between gridded precipitation products in the Southern Prairies of Manitoba</h3>
+          <p class="authors"><b>Mohammadiigder, O.</b>, Rajulapati, C. R., Mantilla, R., &amp; Unduche, F.</p>
+          <p class="venue"><span class="badge pub-ok">Published</span><em>Journal of Hydrology: Regional Studies, 62, 102786</em><a class="doi" href="https://doi.org/10.1016/j.ejrh.2025.102786" target="_blank" rel="noopener">doi:10.1016/j.ejrh.2025.102786</a></p>
+        </div>
+      </li>
+      <li class="pub">
+        <div class="yr">2022</div>
+        <div>
+          <h3>Multivariate assimilation of satellite-based leaf area index and ground-based river streamflow for hydrological modelling of irrigated watersheds using SWAT+</h3>
+          <p class="authors"><b>Mohammadi Igder, O.</b>, Alizadeh, H., Mojaradi, B., &amp; Bayat, M.</p>
+          <p class="venue"><span class="badge pub-ok">Published</span><em>Journal of Hydrology, 610, 128012</em><a class="doi" href="https://doi.org/10.1016/j.jhydrol.2022.128012" target="_blank" rel="noopener">doi:10.1016/j.jhydrol.2022.128012</a></p>
+        </div>
+      </li>
+    </ol>
+    <div class="eyebrow sub-label">In the pipeline</div>
+    <ol class="pubs">
+      <li class="pub">
+        <div class="yr">Next</div>
+        <div>
+          <h3>On the trade-off between simulation performance and QPE/QPF error sensitivity in conceptual and machine-learning streamflow models</h3>
+          <p class="authors"><b>Mohammadiigder, O.</b>, Abideen, M. Z. U., Rajulapati, C. R., &amp; Mantilla, R.</p>
+          <p class="venue"><span class="badge pub-rev">Under review</span><em>Geophysical Research Letters</em></p>
+        </div>
+      </li>
+      <li class="pub">
+        <div class="yr">Next</div>
+        <div>
+          <h3>Benchmarking data assimilation algorithms via perfect-DA experiments: Quantifying initial-state and precipitation uncertainty in streamflow forecast skill</h3>
+          <p class="authors"><b>Mohammadiigder, O.</b>, Mantilla, R., Rajulapati, C. R., Krajewski, W. F., Tolossa, H., &amp; Unduche, F.</p>
+          <p class="venue"><span class="badge pub-prep">In preparation</span><em>Journal of Hydrology</em></p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Experience</div>
+      <h2>From model code to operational forecasts</h2>
+    </div>
+    <ol class="timeline">
+      <li class="job">
+        <div class="when">2023 &ndash; 2026</div>
+        <h3>Graduate Research Assistant</h3>
+        <p class="org">University of Manitoba, Winnipeg &middot; funded by Manitoba Transportation and Infrastructure</p>
+        <ul>
+          <li>Implemented and compared the Ensemble Kalman Filter and Generative Ensemble Data Assimilation (GEnDA) for updating states in Raven models.</li>
+          <li>Designed perfect-DA experiments that isolate the effect of initial-state and precipitation uncertainty on forecast skill.</li>
+          <li>Quantified how precipitation and epistemic (structure and parameter) uncertainty contribute to streamflow estimates in cold-region basins.</li>
+          <li>Compared conceptual Raven models with LSTM models (NeuralHydrology) for sensitivity to QPE and QPF errors.</li>
+          <li>Evaluated seven gridded precipitation products against 103 rain gauges, including seasonal biases in winter snowfall.</li>
+        </ul>
+      </li>
+      <li class="job c2">
+        <div class="when">May 2025 &ndash; May 2026</div>
+        <h3>Intern, Hydrologic Forecast Centre</h3>
+        <p class="org">Manitoba Transportation and Infrastructure, Winnipeg</p>
+        <ul>
+          <li>Developed Raven-based hydrological models for the Assiniboine River and Red River basins to support operational flood forecasting.</li>
+          <li>Automated the Raven model-building workflow, streamlining model setup for forecasting applications.</li>
+        </ul>
+      </li>
+      <li class="job c3">
+        <div class="when">2018 &ndash; 2021</div>
+        <h3>Graduate Researcher</h3>
+        <p class="org">Iran University of Science and Technology, Tehran</p>
+        <ul>
+          <li>Modified the SWAT and SWAT+ Fortran source code to couple the model with data assimilation, with the Particle Filter and EnKF implemented in Python.</li>
+          <li>Assimilated SMAP soil moisture, streamflow, Sentinel-2 LAI and MODIS snow cover into SWAT+ using a Particle Filter.</li>
+          <li>Retrieved LAI from Sentinel-2 in SNAP, downscaled SMAP soil moisture with Random Forest, and pulled satellite data through Google Earth Engine.</li>
+        </ul>
+      </li>
+      <li class="job c4">
+        <div class="when">2018 &ndash; 2022</div>
+        <h3>Teaching</h3>
+        <p class="org">University of Manitoba and Jahrom University</p>
+        <ul>
+          <li>Teaching Assistant for Fluid Mechanics (Winter 2024-2025) and Hydrology (Fall 2023-2024) at the University of Manitoba.</li>
+          <li>Instructor for SWAT and SWAT+ hydrological modelling training (2020 &ndash; 2022).</li>
+          <li>Teaching Assistant for GIS and Remote Sensing and for HEC-RAS at Jahrom University (Winter 2018).</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Education</div>
+      <h2>Three degrees in water</h2>
+    </div>
+    <div class="edu">
+      <article>
+        <span class="deg">Ph.D. &middot; 2023 &ndash; 2026</span>
+        <h3>Civil Engineering, Water Resources</h3>
+        <p>University of Manitoba, Canada</p>
+        <p class="gpa">GPA 3.88</p>
+        <p>Propagation of Precipitation and Parameter Uncertainty in Hydrological Modelling: Enhancing Forecast Skill via Data Assimilation.</p>
+      </article>
+      <article>
+        <span class="deg">M.Sc. &middot; 2018 &ndash; 2021</span>
+        <h3>Civil Engineering, Water Resources Management</h3>
+        <p>Iran University of Science and Technology, Tehran</p>
+        <p class="gpa">GPA 4.0/4.0, ranked 4th in cohort</p>
+        <p>Assimilating satellite-based leaf area index and river streamflow for irrigated watersheds using SWAT+.</p>
+      </article>
+      <article>
+        <span class="deg">B.Sc. &middot; 2014 &ndash; 2018</span>
+        <h3>Water Science and Engineering</h3>
+        <p>Jahrom University, Fars, Iran</p>
+        <p class="gpa">GPA 3.88/4.0, ranked 1st in cohort</p>
+        <p>Project: hydraulic design of a diversion dam.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Toolkit</div>
+      <h2>Models, methods and code</h2>
+    </div>
+    <div class="skills">
+      <div class="skill-group g1">
+        <h3>Hydrologic and hydraulic models</h3>
+        <ul class="chips">
+          <li>Raven</li><li>HMETS</li><li>GR4J</li><li>HYMOD</li><li>MOHYSE</li><li>SAC-SMA</li><li>SWAT / SWAT+</li><li>HEC-HMS</li><li>HEC-RAS</li><li>WEAP</li>
+        </ul>
+      </div>
+      <div class="skill-group g2">
+        <h3>Data assimilation and uncertainty</h3>
+        <ul class="chips">
+          <li>Ensemble Kalman Filter</li><li>Particle Filter</li><li>GEnDA</li><li>Perfect-DA experiments</li><li>Ensemble analysis</li>
+        </ul>
+      </div>
+      <div class="skill-group g3">
+        <h3>Programming and computing</h3>
+        <ul class="chips">
+          <li>Python</li><li>R</li><li>MATLAB</li><li>Fortran</li><li>JavaScript (Earth Engine)</li><li>HPC (Digital Research Alliance of Canada)</li><li>NeuralHydrology</li>
+        </ul>
+      </div>
+      <div class="skill-group g4">
+        <h3>GIS, remote sensing and water quality</h3>
+        <ul class="chips">
+          <li>ArcGIS</li><li>QGIS</li><li>Google Earth Engine</li><li>SNAP</li><li>ENVI</li><li>Sentinel-2</li><li>SMAP</li><li>MODIS</li><li>Landsat</li><li>CE-QUAL-W2</li><li>QUAL2Kw</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="service">
+  <div class="wrap two-col">
+    <div>
+      <h3 class="col-title">Honors and funding</h3>
+      <ul class="plain">
+        <li><span class="y">2026</span><span><b>Research Completion Scholarship</b><span class="sub">Faculty of Graduate Studies, University of Manitoba</span></span></li>
+        <li><span class="y">2025 &ndash; 26</span><span><b>Edward R. Toporeck Graduate Fellowship in Engineering</b><span class="sub">University of Manitoba</span></span></li>
+        <li><span class="y">2025</span><span><b>Faculty of Graduate Studies Travel Award</b><span class="sub">University of Manitoba</span></span></li>
+        <li><span class="y">2023 &ndash; 26</span><span><b>Doctoral research funding</b><span class="sub">Manitoba Transportation and Infrastructure</span></span></li>
+        <li><span class="y">2018, 2014</span><span><b>Exceptional Talents Scholarships</b><span class="sub">Ministry of Science, Research and Technology, Iran</span></span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="col-title">Service and leadership</h3>
+      <ul class="plain">
+        <li><span class="y">Dec 2025 &ndash;</span><span><b>Editor, Communications Team</b><span class="sub">IWA Young Water Professionals Canada</span></span></li>
+        <li><span class="y">2023 &ndash; 25</span><span><b>Coordinator, Western Region</b><span class="sub">IWA Young Water Professionals Canada</span></span></li>
+        <li><span class="y">2023 &ndash; 24</span><span><b>Treasurer</b><span class="sub">Civil Engineering Graduate Students' Association</span></span></li>
+        <li><span class="y">2023 &ndash; 24</span><span><b>Project Officer</b><span class="sub">CWRA Student and Young Professionals, Winnipeg Chapter</span></span></li>
+        <li><span class="y">Reviewer</span><span><b>Journal of Hydrometeorology</b><span class="sub">and Journal of Water and Climate Change</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Contact</div>
+    <h2>Let's talk about forecasts, uncertainty or collaboration</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="label">University email</span>
+        <span class="val">mohamm90@myumanitoba.ca</span>
+        <button class="copy" type="button" data-copy="mohamm90@myumanitoba.ca">Copy address</button>
+      </div>
+      <div class="contact-card">
+        <span class="label">Personal email</span>
+        <span class="val">omidmohammadi9124@gmail.com</span>
+        <button class="copy" type="button" data-copy="omidmohammadi9124@gmail.com">Copy address</button>
+      </div>
+      <div class="contact-card">
+        <span class="label">Code and location</span>
+        <a class="val" href="https://github.com/omidigder" target="_blank" rel="noopener">github.com/omidigder</a>
+        <span class="val" style="font-weight:400;color:var(--hero-muted)">Winnipeg, Manitoba, Canada</span>
+      </div>
+    </div>
+    <p class="footer">&copy; 2026 Omid Mohammadiigder</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var svg = document.getElementById('hydro');
+  var NS = 'http://www.w3.org/2000/svg';
+  var W = 640, H = 330, L = 14, R = 14, T = 16, B = 34;
+  var N = 90;
+  function rng(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+  function melt(t, peakAt, width, amp, base) {
+    var a = (t - peakAt) / width;
+    var main = amp * Math.exp(-a * a);
+    var tail = t > peakAt ? amp * 0.28 * Math.exp(-(t - peakAt) / (width * 2.2)) : 0;
+    var early = amp * 0.22 * Math.exp(-Math.pow((t - (peakAt - width * 1.7)) / (width * 0.5), 2));
+    return base + main + tail + early;
+  }
+  var obs = [];
+  var r0 = rng(11);
+  for (var i = 0; i < N; i++) obs.push(melt(i, 38, 11, 100, 14) + (r0() - 0.5) * 2.4);
+  var members = [];
+  for (var m = 0; m < 14; m++) {
+    var r = rng(100 + m * 37);
+    var shift = (r() - 0.5) * 9, amp = 78 + r() * 52, wid = 9.5 + r() * 5, base = 10 + r() * 9;
+    var arr = [];
+    for (var i2 = 0; i2 < N; i2++) arr.push(melt(i2, 38 + shift, wid, amp, base) + (r() - 0.5) * 2);
+    members.push(arr);
+  }
+  var maxV = 0;
+  members.forEach(function (a) { a.forEach(function (v) { if (v > maxV) maxV = v; }); });
+  obs.forEach(function (v) { if (v > maxV) maxV = v; });
+  function x(i) { return L + (i / (N - 1)) * (W - L - R); }
+  function y(v) { return H - B - (v / (maxV * 1.06)) * (H - B - T); }
+  function el(name, attrs) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    svg.appendChild(e);
+    return e;
+  }
+  // baseline and season ticks
+  el('line', { x1: L, x2: W - R, y1: H - B, y2: H - B, stroke: '#9CC3CF', 'stroke-opacity': '0.45', 'stroke-width': '1' });
+  [['Mar', 0], ['Apr', 30], ['May', 60]].forEach(function (p) {
+    var px = x(p[1]);
+    el('line', { x1: px, x2: px, y1: H - B, y2: H - B + 6, stroke: '#9CC3CF', 'stroke-opacity': '0.6' });
+    var t = el('text', { x: px + 4, y: H - B + 22, fill: '#9CC3CF', 'font-size': '12', 'font-family': 'JetBrains Mono, monospace' });
+    t.textContent = p[0];
+  });
+  // ensemble band
+  var top = [], bot = [];
+  for (var i3 = 0; i3 < N; i3++) {
+    var lo = 1e9, hi = -1e9;
+    members.forEach(function (a) { if (a[i3] < lo) lo = a[i3]; if (a[i3] > hi) hi = a[i3]; });
+    top.push(x(i3).toFixed(1) + ',' + y(hi).toFixed(1));
+    bot.push(x(i3).toFixed(1) + ',' + y(lo).toFixed(1));
+  }
+  el('polygon', { points: top.join(' ') + ' ' + bot.reverse().join(' '), fill: '#4FD6E6', 'fill-opacity': '0.16' });
+  members.forEach(function (a) {
+    var d = a.map(function (v, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(v).toFixed(1); }).join(' ');
+    el('path', { d: d, fill: 'none', stroke: '#4FD6E6', 'stroke-opacity': '0.55', 'stroke-width': '1.2', 'stroke-linejoin': 'round' });
+  });
+  var od = obs.map(function (v, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(v).toFixed(1); }).join(' ');
+  el('path', { d: od, fill: 'none', stroke: '#FFB547', 'stroke-width': '3', 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+  var pi = obs.indexOf(Math.max.apply(null, obs));
+  el('circle', { cx: x(pi), cy: y(obs[pi]), r: 5, fill: '#FFB547', stroke: '#08263A', 'stroke-width': '2' });
+  var lab = el('text', { x: x(pi) + 12, y: y(obs[pi]) + 4, fill: '#EAF6F9', 'font-size': '12', 'font-family': 'JetBrains Mono, monospace' });
+  lab.textContent = 'melt peak';
+})();
+
+document.querySelectorAll('.copy').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var text = b.getAttribute('data-copy');
+    var card = b.parentNode.querySelector('.val');
+    function fallback() {
+      var range = document.createRange();
+      range.selectNodeContents(card);
+      var sel = window.getSelection();
+      sel.removeAllRanges(); sel.addRange(range);
+      b.textContent = 'Selected, press copy';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        b.textContent = 'Copied';
+        setTimeout(function () { b.textContent = 'Copy address'; }, 1800);
+      }, fallback);
+    } else { fallback(); }
+  });
+});
+</script>
+</body>
+</html>
